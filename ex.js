@@ -9,11 +9,12 @@ var opts = {
 }
 
 // crawl('jbenet/random-ideas', function (err, graph) {
-// crawl('noffle/github-dependency-crawl', function (err, graph) {
-crawl(opts, function (err, graph) {
+crawl('noffle/github-dependency-crawl', function (err, graph, issues) {
+//crawl(opts, function (err, graph) {
   if (err) return console.log(err)
 
   console.log(graph)
+  console.log(issues)
 })
 
 

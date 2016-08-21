@@ -3,6 +3,8 @@ var urlMatch = require('url-regexp').match
 var urlParse = require('url').parse
 var asyncReduce = require('async').reduce
 
+var ISSUES = {};
+
 // TODO: consider using a github api module instead of http api directly
 
 module.exports = function (opts, cb) {
@@ -89,7 +91,7 @@ module.exports = function (opts, cb) {
 
     // Base case; all is resolved already
     if (!unresolved.length) {
-      return cb(null, graph)
+      return cb(null, graph, ISSUES)
     }
 
     // TODO: a possible optimization might be to check if there are e.g. > N
@@ -321,6 +323,8 @@ function githubIssuesToDependencyGraph (issues) {
     var deps = filterMap(
       extractDependencyUrls(issue.body, orgRepo),
       dependencyUrlToCanonicalName)
+
+    ISSUES[name] = issue;
 
     var res = {}
     res[name] = deps
